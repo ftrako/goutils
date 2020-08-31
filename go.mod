@@ -1,4 +1,4 @@
-module goutils
+module github.com/ftrako/goutils
 
 go 1.12
 
