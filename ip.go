@@ -2,9 +2,30 @@ package goutils
 
 import (
 	"bytes"
+	"net"
+	"net/http"
 	"strconv"
 	"strings"
 )
+
+// 如果使用了NGINX代理，需要在nginx中设置IP字段
+// proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+func GetRealIP(r *http.Request) string {
+	ip := strings.Replace(r.Header.Get("X-Forwarded-For"), " ", "", -1)
+	if ip != "" {
+		if strings.Contains(ip, `,`) {
+			return strings.Split(ip, `,`)[0]
+		}
+		return ip
+	}
+
+	// 获取客户端IP地址
+	ip, _, err := net.SplitHostPort(r.RemoteAddr)
+	if err != nil {
+		return ""
+	}
+	return ip
+}
 
 func IPStr2Int(ipstr string) int {
 	ipSegs := strings.Split(ipstr, ".")

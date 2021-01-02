@@ -1,5 +1,15 @@
-module github.com/ftrako/goutils
+module utils
 
 go 1.12
 
-require golang.org/x/text v0.3.3
+require (
+	github.com/dgrijalva/jwt-go v3.2.0+incompatible
+	github.com/ftrako/logger v1.0.6
+	github.com/garyburd/redigo v1.6.2
+	github.com/gin-gonic/gin v1.6.3
+	github.com/go-sql-driver/mysql v1.5.0
+	github.com/jmoiron/sqlx v1.2.0
+	github.com/json-iterator/go v1.1.10
+	github.com/satori/go.uuid v1.2.0
+	golang.org/x/text v0.3.4
+)
