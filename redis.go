@@ -52,12 +52,20 @@ func SetValueEX(pool *redis.Pool, key string, value interface{}, expired int) er
 func Incr(pool *redis.Pool, key string) (int64, error) {
 	conn := pool.Get()
 	defer conn.Close()
+	return IncrConn(conn, key)
+}
+
+func IncrConn(conn redis.Conn, key string) (int64, error) {
 	return redis.Int64(conn.Do("INCR", key))
 }
 
 func IncrEX(pool *redis.Pool, key string, expired int) error {
 	conn := pool.Get()
 	defer conn.Close()
+	return IncrEXConn(conn, key, expired)
+}
+
+func IncrEXConn(conn redis.Conn, key string, expired int) error {
 	err := conn.Send("INCR", key)
 	if err != nil {
 		return err
@@ -69,6 +77,10 @@ func IncrEX(pool *redis.Pool, key string, expired int) error {
 func DescEX(pool *redis.Pool, key interface{}, expired int) error {
 	conn := pool.Get()
 	defer conn.Close()
+	return DescEXConn(conn,key,expired)
+}
+
+func DescEXConn(conn redis.Conn, key interface{}, expired int) error {
 	err := conn.Send("DECR", key)
 	if err != nil {
 		return err
@@ -94,6 +106,10 @@ func SendExpireConn(conn redis.Conn, key string, expired int) error {
 func Get(pool *redis.Pool, key string) (interface{}, error) {
 	conn := pool.Get()
 	defer conn.Close()
+	return GetConn(conn,key)
+}
+
+func GetConn(conn redis.Conn, key string) (interface{}, error) {
 	return conn.Do("GET", key)
 }
 
