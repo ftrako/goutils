@@ -92,6 +92,10 @@ func DescEXConn(conn redis.Conn, key interface{}, expired int) error {
 func Exists(cache *redis.Pool, key string) (bool, error) {
 	conn := cache.Get()
 	defer conn.Close()
+	return ExistsConn(conn, key)
+}
+
+func ExistsConn(conn redis.Conn, key string) (bool, error) {
 	return redis.Bool(conn.Do("EXISTS", key))
 }
 
