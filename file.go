@@ -2,8 +2,10 @@ package goutils
 
 import (
 	"bufio"
+	"fmt"
 	"io"
 	"os"
+	"strings"
 )
 
 // 文件类
@@ -30,4 +32,25 @@ func ReadTextFile(file string, fn func(text string)) error {
 		}
 	}
 	return nil
+}
+
+// 创建文件
+// 自动递归创建父级目录
+func CreateFile(path string) error {
+	n := strings.LastIndex(path, "/")
+	fmt.Println("n:", n)
+	if n > 0 {
+		err := CreateDir(path[:n])
+		if err != nil {
+			return err
+		}
+	}
+	_, err := os.Create(path)
+	return err
+}
+
+// 创建目录
+// 自动递归创建父级目录
+func CreateDir(path string) error {
+	return os.MkdirAll(path, os.ModeType|os.ModePerm)
 }
