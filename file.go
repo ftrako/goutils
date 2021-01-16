@@ -2,7 +2,6 @@ package goutils
 
 import (
 	"bufio"
-	"fmt"
 	"io"
 	"os"
 	"strings"
@@ -37,15 +36,19 @@ func ReadTextFile(file string, fn func(text string)) error {
 // 创建文件
 // 自动递归创建父级目录
 func CreateFile(path string) error {
+	_, err := os.Stat(path)
+	if err == nil {
+		return nil
+	}
+
 	n := strings.LastIndex(path, "/")
-	fmt.Println("n:", n)
 	if n > 0 {
 		err := CreateDir(path[:n])
 		if err != nil {
 			return err
 		}
 	}
-	_, err := os.Create(path)
+	_, err = os.Create(path)
 	return err
 }
 
