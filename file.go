@@ -57,3 +57,12 @@ func CreateFile(path string) error {
 func CreateDir(path string) error {
 	return os.MkdirAll(path, os.ModeType|os.ModePerm)
 }
+
+// 文件是否存在
+func FileExists(path string) bool {
+	_, err := os.Stat(path)
+	if err == nil {
+		return true
+	}
+	return false
+}
