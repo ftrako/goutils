@@ -3,6 +3,7 @@ package goutils
 import (
 	"bufio"
 	"io"
+	"io/ioutil"
 	"os"
 	"strings"
 )
@@ -31,6 +32,16 @@ func ReadTextFile(file string, fn func(text string)) error {
 		}
 	}
 	return nil
+}
+
+// 读取文件所有内容
+func ReadFileAll(filepath string) ([]byte, error) {
+	file, err := os.Open(filepath)
+	if err != nil {
+		return nil, err
+	}
+	defer file.Close()
+	return ioutil.ReadAll(file)
 }
 
 // 创建文件
