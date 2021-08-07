@@ -11,8 +11,11 @@ require (
 	github.com/go-sql-driver/mysql v1.5.0
 	github.com/jmoiron/sqlx v1.3.1
 	github.com/json-iterator/go v1.1.10
+	github.com/kballard/go-shellquote v0.0.0-20180428030007-95032a82bc51 // indirect
 	github.com/lib/pq v1.9.0
 	github.com/satori/go.uuid v1.2.0
+	github.com/tmc/scp v0.0.0-20170824174625-f7b48647feef // indirect
+	golang.org/x/crypto v0.0.0-20210711020723-a769d52b0f97 // indirect
 	golang.org/x/text v0.3.4
 	gopkg.in/check.v1 v1.0.0-20201130134442-10cb98267c6c // indirect
 )
